@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Penetration Testing",
+        "icon": "<i class='fas fa-shield-alt'></i>",
+        "desc": "Saya melakukan pengujian penetrasi komprehensif untuk mengidentifikasi kerentanan keamanan dan kelemahan dalam sistem, jaringan, dan aplikasi. Menggunakan alat dan metodologi standar industri, saya membantu organisasi memperkuat postur keamanan mereka dan melindungi dari ancaman siber."
+    },
+    {
+        "name": "Incident Response",
+        "icon": "<i class='fas fa-exclamation-triangle'></i>",
+        "desc": "Saya menyediakan layanan respons insiden yang cepat dan efektif untuk mendeteksi, menganalisis, dan memperbaiki insiden keamanan. Keahlian saya memastikan kerusakan minimal dan pemulihan cepat dari serangan siber dan pelanggaran keamanan."
+    },
+    {
+        "name": "Web Application Security",
+        "icon": "<i class='fas fa-globe'></i>",
+        "desc": "Saya spesialis dalam mengamankan aplikasi web terhadap kerentanan umum seperti ancaman OWASP Top 10. Saya membantu pengembang membangun aplikasi yang aman dan melakukan penilaian keamanan menyeluruh untuk memastikan aplikasi web Anda terlindungi."
+    },
+    {
+        "name": "Full-Stack Development",
+        "icon": "<i class='fas fa-laptop-code'></i>",
+        "desc": "Saya menawarkan layanan pengembangan full-stack komprehensif menggunakan teknologi modern. Dari desain database hingga antarmuka frontend, saya membuat aplikasi web yang lengkap, skalabel, dan dapat dipertahankan yang memenuhi kebutuhan bisnis Anda."
+    }
+]
