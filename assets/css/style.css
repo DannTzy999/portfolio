@@ -1403,12 +1403,13 @@ header .navbar ul li a:hover {
   font-family: "Poppins", sans-serif;
   line-height: 1.35;
 }
+.certifications .cert-content .cert-desc,
 .certifications .cert-content .issuer {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   color: #4b5563;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  line-height: 1.4;
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
   font-family: "Poppins", sans-serif;
 }
 .certifications .cert-content .cert-date {
@@ -1443,6 +1444,7 @@ header .navbar ul li a:hover {
   .certifications .cert-content h3 {
     font-size: 1.85rem;
   }
+  .certifications .cert-content .cert-desc,
   .certifications .cert-content .issuer {
     font-size: 1.35rem;
   }
