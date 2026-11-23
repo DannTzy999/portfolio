@@ -1020,8 +1020,18 @@ header .navbar ul li a:hover {
   font-weight: 600;
   padding: 3px 12px;
   border-radius: 20px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.experience .exp-badges a.badge:hover {
+  background: #24292e;
+  color: #f68c09;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* ===== EXPERIENCE IMAGE LIGHTBOX MODAL ===== */
