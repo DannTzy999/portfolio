@@ -79,43 +79,37 @@ var typed = new Typed(".typing-text", {
 });
 // <!-- typed js effect ends -->
 
-async function fetchData() {
-    let response = await fetch("skills.json");
-    const data = await response.json();
-    return data;
-}
+// <!-- skills tab filter starts -->
+function initSkillFilters() {
+    const filterBtns = document.querySelectorAll(".skills-filter .filter-btn");
+    const toolCards = document.querySelectorAll(".tools-grid .tool-card");
+    if (!filterBtns.length || !toolCards.length) return;
 
-function showSkills(skills) {
-    let skillsContainer = document.getElementById("skillsContainer");
-    skillsContainer.innerHTML = "";
-    let skillHTML = "";
-    skills.forEach(skill => {
-        skillHTML += `
-        <div class="box tilt">
-          <div class="content">
-            <div class="icon-box">
-              ${skill.icon}
-            </div>
-            <h3>${skill.name}</h3>
-            <p>${skill.desc}</p>
-            <a href="#contact" class="btn"><span>Contact me</span>
-              <i class="fas fa-chevron-right"></i>
-            </a>
-          </div>
-        </div>`
+    filterBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            filterBtns.forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+
+            const filterValue = this.getAttribute("data-filter");
+
+            toolCards.forEach(card => {
+                const category = card.getAttribute("data-category");
+                if (filterValue === "all" || category === filterValue) {
+                    card.classList.remove("hide");
+                } else {
+                    card.classList.add("hide");
+                }
+            });
+        });
     });
-    skillsContainer.innerHTML = skillHTML;
 }
 
-fetchData().then(data => {
-    showSkills(data);
-});
-
-// <!-- tilt js effect starts -->
-VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    max: 15,
-});
-// <!-- tilt js effect ends -->
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSkillFilters);
+} else {
+    initSkillFilters();
+}
+// <!-- skills tab filter ends -->
 
 
 
@@ -172,8 +166,11 @@ srtop.reveal('.about .content .resumebtn', { delay: 200 });
 
 
 /* SCROLL SKILLS */
-srtop.reveal('.skills .container', { interval: 200 });
-srtop.reveal('.skills .container .bar', { delay: 400 });
+srtop.reveal('.skills .heading', { delay: 200 });
+srtop.reveal('.skills .competency-card', { interval: 200 });
+srtop.reveal('.skills .tools-section-title', { delay: 200 });
+srtop.reveal('.skills .skills-filter', { delay: 200 });
+srtop.reveal('.skills .tool-card', { interval: 100 });
 
 /* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });

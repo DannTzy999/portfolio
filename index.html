@@ -102,18 +102,101 @@
 
     <h2 class="heading"><i class="fas fa-laptop-code"></i> Skills & <span>Abilities</span></h2>
 
-    <div class="container">
-          <div class="row" id="skillsContainer">
+    <div class="skills-wrapper">
 
-            <!-- <div class="bar">
-              <div class="info">
-                <img src="https://img.icons8.com/color/48/000000/adobe-xd.png"/>
-                <span>AdobeXD</span>
-              </div>
-            </div> -->
+        <!-- 2 Kartu Kompetensi Utama -->
+        <div class="competencies-grid">
+            <div class="competency-card">
+                <div class="comp-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Penetration Testing & Vulnerability Research</h3>
+                <p>Melakukan pengujian penetrasi dan riset kerentanan secara etis untuk mengidentifikasi celah keamanan pada sistem dan aplikasi web.</p>
+            </div>
 
-      </div>
-</div>
+            <div class="competency-card">
+                <div class="comp-icon"><i class="fas fa-lock"></i></div>
+                <h3>Web Application Security</h3>
+                <p>Berfokus pada pengamanan arsitektur dan kode aplikasi web terhadap ancaman umum seperti OWASP Top 10.</p>
+            </div>
+        </div>
+
+        <!-- Sub-section Tools & Tech Stack -->
+        <div class="tools-sub-section">
+            <h3 class="tools-section-title"><i class="fas fa-tools"></i> Tools & <span>Tech Stack</span></h3>
+
+            <!-- Tab Filter Kategori -->
+            <div class="skills-filter">
+                <button class="filter-btn active" data-filter="all">Semua Tools (10)</button>
+                <button class="filter-btn" data-filter="pentest">Pentest & Web Testing (6)</button>
+                <button class="filter-btn" data-filter="env-dev">Environment & Dev (4)</button>
+            </div>
+
+            <!-- Grid 10 Kartu Tools -->
+            <div class="tools-grid">
+                <!-- Pentest & Web Testing -->
+                <div class="tool-card" data-category="pentest">
+                    <div class="tool-icon"><i class="fas fa-network-wired"></i></div>
+                    <h4 class="tool-name">Nmap</h4>
+                    <p class="tool-desc">Pemindaian jaringan, port, dan layanan aktif.</p>
+                </div>
+
+                <div class="tool-card" data-category="pentest">
+                    <div class="tool-icon"><i class="fas fa-spider"></i></div>
+                    <h4 class="tool-name">Burp Suite</h4>
+                    <p class="tool-desc">Analisis lalu lintas HTTP dan pengujian celah web.</p>
+                </div>
+
+                <div class="tool-card" data-category="pentest">
+                    <div class="tool-icon"><i class="fas fa-bolt"></i></div>
+                    <h4 class="tool-name">ffuf</h4>
+                    <p class="tool-desc">Fuzzing direktori, parameter, dan endpoint tersembunyi.</p>
+                </div>
+
+                <div class="tool-card" data-category="pentest">
+                    <div class="tool-icon"><i class="fas fa-globe"></i></div>
+                    <h4 class="tool-name">WhatWeb</h4>
+                    <p class="tool-desc">Identifikasi teknologi, CMS, dan framework web target.</p>
+                </div>
+
+                <div class="tool-card" data-category="pentest">
+                    <div class="tool-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h4 class="tool-name">Curl</h4>
+                    <p class="tool-desc">Pengiriman dan inspeksi request HTTP via terminal.</p>
+                </div>
+
+                <div class="tool-card" data-category="pentest">
+                    <div class="tool-icon"><i class="fas fa-lock"></i></div>
+                    <h4 class="tool-name">SSL/TLS</h4>
+                    <p class="tool-desc">Analisis enkripsi dan validasi sertifikat keamanan web.</p>
+                </div>
+
+                <!-- Environment & Dev -->
+                <div class="tool-card" data-category="env-dev">
+                    <div class="tool-icon"><i class="fab fa-linux"></i></div>
+                    <h4 class="tool-name">Linux (Ubuntu/Debian CLI)</h4>
+                    <p class="tool-desc">Administrasi server dan lingkungan pengujian keamanan.</p>
+                </div>
+
+                <div class="tool-card" data-category="env-dev">
+                    <div class="tool-icon"><i class="fab fa-docker"></i></div>
+                    <h4 class="tool-name">Docker</h4>
+                    <p class="tool-desc">Penyediaan environment lab terisolasi berbasis kontainer.</p>
+                </div>
+
+                <div class="tool-card" data-category="env-dev">
+                    <div class="tool-icon"><i class="fab fa-python"></i></div>
+                    <h4 class="tool-name">Python 3</h4>
+                    <p class="tool-desc">Otomatisasi pengujian dan pembuatan skrip Proof-of-Concept (PoC).</p>
+                </div>
+
+                <div class="tool-card" data-category="env-dev">
+                    <div class="tool-icon"><i class="fab fa-git-alt"></i></div>
+                    <h4 class="tool-name">Git</h4>
+                    <p class="tool-desc">Manajemen versi kode sumber dan kolaborasi proyek.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </section>
 <!-- skills section ends -->
 
