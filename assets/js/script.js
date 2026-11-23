@@ -188,3 +188,63 @@ srtop.reveal('.experience .timeline .container', { interval: 400 });
 /* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
+
+/* ===== EXPERIENCE IMAGE LIGHTBOX / MODAL PREVIEW ===== */
+function initExperienceLightbox() {
+    const lightbox = document.getElementById("image-lightbox");
+    if (!lightbox) return;
+
+    const overlay = lightbox.querySelector(".lightbox-overlay");
+    const closeBtn = lightbox.querySelector(".lightbox-close");
+    const lightboxImg = lightbox.querySelector(".lightbox-img");
+    const lightboxCaption = lightbox.querySelector(".lightbox-caption");
+
+    function openLightbox(src, alt, caption) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || "Preview";
+        lightboxCaption.textContent = caption || "";
+        lightbox.classList.add("active");
+        lightbox.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("active");
+        lightbox.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        setTimeout(() => {
+            if (!lightbox.classList.contains("active")) {
+                lightboxImg.src = "";
+            }
+        }, 300);
+    }
+
+    // Attach click events to experience images
+    document.querySelectorAll(".experience .exp-image img").forEach(img => {
+        img.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const card = img.closest(".content");
+            const title = card ? card.querySelector("h2")?.textContent : img.alt;
+            openLightbox(img.src, img.alt, title);
+        });
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+    if (overlay) overlay.addEventListener("click", closeLightbox);
+
+    // Close when pressing Escape key
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" || e.keyCode === 27) {
+            if (lightbox.classList.contains("active")) {
+                closeLightbox();
+            }
+        }
+    });
+}
+
+// Initialize on DOM ready
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initExperienceLightbox);
+} else {
+    initExperienceLightbox();
+}
