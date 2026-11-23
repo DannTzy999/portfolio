@@ -185,6 +185,10 @@ srtop.reveal('.work .box', { interval: 200 });
 srtop.reveal('.experience .timeline', { delay: 400 });
 srtop.reveal('.experience .timeline .container', { interval: 400 });
 
+/* SCROLL CERTIFICATIONS */
+srtop.reveal('.certifications .heading', { delay: 200 });
+srtop.reveal('.certifications .cert-box', { interval: 250 });
+
 /* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
@@ -347,6 +351,23 @@ function initExperienceLightbox() {
         }
 
         expImage.addEventListener("click", function (e) {
+            e.stopPropagation();
+            openLightbox(images, 0, title);
+        });
+    });
+
+    // Attach click events to certification cards
+    document.querySelectorAll(".certifications .cert-image").forEach(certImage => {
+        const card = certImage.closest(".cert-box");
+        const title = card ? card.querySelector("h3")?.textContent.trim() : "";
+        const img = certImage.querySelector("img");
+        if (!img) return;
+        const images = [{
+            src: img.getAttribute("src") || img.src,
+            alt: img.getAttribute("alt") || title || "Sertifikat"
+        }];
+
+        certImage.addEventListener("click", function (e) {
             e.stopPropagation();
             openLightbox(images, 0, title);
         });
