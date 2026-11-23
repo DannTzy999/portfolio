@@ -163,7 +163,7 @@
 
     <div class="container left">
       <div class="content">
-        <div class="exp-image">
+        <div class="exp-image" data-images='["./assets/images/experience/cyber-student.jpg", "./assets/images/experience/ctf.jpg"]'>
           <img draggable="false" src="./assets/images/experience/cyber-student.jpg" alt="Cyber Student Community">
         </div>
         <div class="exp-info">
@@ -179,7 +179,7 @@
 
     <div class="container right">
       <div class="content">
-        <div class="exp-image">
+        <div class="exp-image" data-images='["./assets/images/experience/ctf.jpg", "./assets/images/experience/cyber-student.jpg"]'>
           <img draggable="false" src="./assets/images/experience/ctf.jpg" alt="Capture The Flag">
         </div>
         <div class="exp-info">
@@ -195,7 +195,7 @@
 
     <div class="container left">
       <div class="content">
-        <div class="exp-image">
+        <div class="exp-image" data-images='["./assets/images/experience/protic.jpg"]'>
           <img draggable="false" src="./assets/images/experience/protic.jpg" alt="PROTIC">
         </div>
         <div class="exp-info">
@@ -212,7 +212,7 @@ Sebagai catatan etika, selama pengujian ini saya hanya menggunakan file gambar d
 
     <div class="container right">
       <div class="content">
-        <div class="exp-image">
+        <div class="exp-image" data-images='["./assets/images/experience/ml.jpg", "./assets/images/experience/ai.jpg"]'>
           <img draggable="false" src="./assets/images/experience/ml.jpg" alt="Linear Regression in Machine Learning">
         </div>
         <div class="exp-info">
@@ -230,7 +230,7 @@ Sebagai catatan etika, selama pengujian ini saya hanya menggunakan file gambar d
 
     <div class="container left">
       <div class="content">
-        <div class="exp-image">
+        <div class="exp-image" data-images='["./assets/images/experience/ai.jpg"]'>
           <img draggable="false" src="./assets/images/experience/ai.jpg" alt="Magang di Fortis Digital.id">
         </div>
         <div class="exp-info">
@@ -247,7 +247,7 @@ Sebagai catatan etika, selama pengujian ini saya hanya menggunakan file gambar d
 
     <div class="container right">
       <div class="content">
-        <div class="exp-image">
+        <div class="exp-image" data-images='["./assets/images/experience/freelance.jpg"]'>
           <img draggable="false" src="./assets/images/experience/freelance.jpg" alt="Freelancer">
         </div>
         <div class="exp-info">
@@ -268,12 +268,27 @@ Sebagai catatan etika, selama pengujian ini saya hanya menggunakan file gambar d
 <!-- experience section ends -->
 
 <!-- image lightbox modal starts -->
-<div id="image-lightbox" class="lightbox-modal" aria-hidden="true" role="dialog" aria-label="Image preview">
+<div id="image-lightbox" class="lightbox-modal" aria-hidden="true" role="dialog" aria-label="Galeri Gambar">
   <div class="lightbox-overlay"></div>
   <button class="lightbox-close" aria-label="Tutup preview">&times;</button>
-  <div class="lightbox-content">
-    <img class="lightbox-img" src="" alt="Preview Gambar">
-    <p class="lightbox-caption"></p>
+  
+  <div class="lightbox-container">
+    <button class="lightbox-nav lightbox-prev" aria-label="Foto Sebelumnya" title="Sebelumnya (ArrowLeft)">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div class="lightbox-content">
+      <div class="lightbox-counter"><span class="current-index">1</span> / <span class="total-count">1</span></div>
+      <div class="lightbox-img-wrapper">
+        <img class="lightbox-img" src="" alt="Preview Gambar">
+      </div>
+      <p class="lightbox-caption"></p>
+      <div class="lightbox-thumbs"></div>
+    </div>
+
+    <button class="lightbox-nav lightbox-next" aria-label="Foto Selanjutnya" title="Selanjutnya (ArrowRight)">
+      <i class="fas fa-chevron-right"></i>
+    </button>
   </div>
 </div>
 <!-- image lightbox modal ends -->

@@ -189,20 +189,117 @@ srtop.reveal('.experience .timeline .container', { interval: 400 });
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
 
-/* ===== EXPERIENCE IMAGE LIGHTBOX / MODAL PREVIEW ===== */
+/* ===== EXPERIENCE IMAGE LIGHTBOX / GALLERY SLIDER ===== */
 function initExperienceLightbox() {
     const lightbox = document.getElementById("image-lightbox");
     if (!lightbox) return;
 
     const overlay = lightbox.querySelector(".lightbox-overlay");
     const closeBtn = lightbox.querySelector(".lightbox-close");
+    const prevBtn = lightbox.querySelector(".lightbox-prev");
+    const nextBtn = lightbox.querySelector(".lightbox-next");
     const lightboxImg = lightbox.querySelector(".lightbox-img");
     const lightboxCaption = lightbox.querySelector(".lightbox-caption");
+    const counterIndex = lightbox.querySelector(".lightbox-counter .current-index");
+    const counterTotal = lightbox.querySelector(".lightbox-counter .total-count");
+    const thumbsContainer = lightbox.querySelector(".lightbox-thumbs");
 
-    function openLightbox(src, alt, caption) {
-        lightboxImg.src = src;
-        lightboxImg.alt = alt || "Preview";
-        lightboxCaption.textContent = caption || "";
+    let currentImages = [];
+    let currentIndex = 0;
+    let currentTitle = "";
+
+    function parseCardImages(expImageEl) {
+        let imgs = [];
+        const dataImages = expImageEl.getAttribute("data-images");
+        if (dataImages) {
+            try {
+                const parsed = JSON.parse(dataImages);
+                if (Array.isArray(parsed)) {
+                    imgs = parsed.map(item => (typeof item === "string" ? { src: item, alt: "" } : item));
+                }
+            } catch (err) {
+                imgs = dataImages.split(",").map(s => ({ src: s.trim(), alt: "" })).filter(x => x.src);
+            }
+        }
+
+        if (!imgs.length) {
+            expImageEl.querySelectorAll("img").forEach(img => {
+                const src = img.getAttribute("src") || img.src;
+                if (src) {
+                    imgs.push({
+                        src: src,
+                        alt: img.getAttribute("alt") || ""
+                    });
+                }
+            });
+        }
+
+        return imgs;
+    }
+
+    function renderThumbs() {
+        if (!thumbsContainer) return;
+        thumbsContainer.innerHTML = "";
+        if (currentImages.length <= 1) return;
+
+        currentImages.forEach((imgObj, i) => {
+            const thumb = document.createElement("img");
+            thumb.className = "lightbox-thumb" + (i === currentIndex ? " active" : "");
+            thumb.src = imgObj.src;
+            thumb.alt = imgObj.alt || `Foto ${i + 1}`;
+            thumb.draggable = false;
+            thumb.addEventListener("click", function (e) {
+                e.stopPropagation();
+                showSlide(i);
+            });
+            thumbsContainer.appendChild(thumb);
+        });
+    }
+
+    function showSlide(index) {
+        if (!currentImages.length) return;
+        currentIndex = (index + currentImages.length) % currentImages.length;
+        const activeImg = currentImages[currentIndex];
+
+        lightboxImg.style.opacity = "0";
+        setTimeout(() => {
+            lightboxImg.src = activeImg.src;
+            lightboxImg.alt = activeImg.alt || currentTitle || "Preview Gambar";
+            lightboxImg.style.opacity = "1";
+        }, 120);
+
+        if (counterIndex) counterIndex.textContent = currentIndex + 1;
+        if (counterTotal) counterTotal.textContent = currentImages.length;
+
+        if (thumbsContainer) {
+            const allThumbs = thumbsContainer.querySelectorAll(".lightbox-thumb");
+            allThumbs.forEach((th, i) => {
+                if (i === currentIndex) {
+                    th.classList.add("active");
+                    th.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+                } else {
+                    th.classList.remove("active");
+                }
+            });
+        }
+    }
+
+    function openLightbox(images, startIndex, title) {
+        if (!images || !images.length) return;
+        currentImages = images;
+        currentTitle = title || "";
+
+        if (lightboxCaption) lightboxCaption.textContent = currentTitle;
+
+        if (currentImages.length <= 1) {
+            lightbox.classList.add("single-image");
+        } else {
+            lightbox.classList.remove("single-image");
+        }
+
+        renderThumbs();
+        showSlide(startIndex || 0);
+
         lightbox.classList.add("active");
         lightbox.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
@@ -214,32 +311,98 @@ function initExperienceLightbox() {
         document.body.style.overflow = "";
         setTimeout(() => {
             if (!lightbox.classList.contains("active")) {
-                lightboxImg.src = "";
+                if (lightboxImg) lightboxImg.src = "";
+                currentImages = [];
             }
         }, 300);
     }
 
-    // Attach click events to experience images
-    document.querySelectorAll(".experience .exp-image img").forEach(img => {
-        img.addEventListener("click", function (e) {
+    function nextSlide() {
+        if (currentImages.length > 1) {
+            showSlide(currentIndex + 1);
+        }
+    }
+
+    function prevSlide() {
+        if (currentImages.length > 1) {
+            showSlide(currentIndex - 1);
+        }
+    }
+
+    // Attach click events and badges to each card
+    document.querySelectorAll(".experience .exp-image").forEach(expImage => {
+        const card = expImage.closest(".content");
+        const title = card ? card.querySelector("h2")?.textContent.trim() : "";
+        const images = parseCardImages(expImage);
+
+        // Add badge if images > 1 and not already present
+        if (images.length > 1) {
+            let badge = expImage.querySelector(".exp-gallery-badge");
+            if (!badge) {
+                badge = document.createElement("span");
+                badge.className = "exp-gallery-badge";
+                badge.innerHTML = `<i class="fas fa-images"></i> <span>${images.length}</span>`;
+                expImage.appendChild(badge);
+            }
+        }
+
+        expImage.addEventListener("click", function (e) {
             e.stopPropagation();
-            const card = img.closest(".content");
-            const title = card ? card.querySelector("h2")?.textContent : img.alt;
-            openLightbox(img.src, img.alt, title);
+            openLightbox(images, 0, title);
         });
     });
 
     if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
     if (overlay) overlay.addEventListener("click", closeLightbox);
+    if (prevBtn) prevBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        prevSlide();
+    });
+    if (nextBtn) nextBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        nextSlide();
+    });
 
-    // Close when pressing Escape key
+    // Keyboard navigation
     document.addEventListener("keydown", function (e) {
+        if (!lightbox.classList.contains("active")) return;
         if (e.key === "Escape" || e.keyCode === 27) {
-            if (lightbox.classList.contains("active")) {
-                closeLightbox();
-            }
+            closeLightbox();
+        } else if (e.key === "ArrowLeft" || e.keyCode === 37) {
+            prevSlide();
+        } else if (e.key === "ArrowRight" || e.keyCode === 39) {
+            nextSlide();
         }
     });
+
+    // Touch swipe gestures on mobile
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const contentArea = lightbox.querySelector(".lightbox-content") || lightbox;
+
+    contentArea.addEventListener("touchstart", function (e) {
+        if (e.touches && e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }
+    }, { passive: true });
+
+    contentArea.addEventListener("touchend", function (e) {
+        if (e.changedTouches && e.changedTouches.length === 1) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+
+            if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX < 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+        }
+    }, { passive: true });
 }
 
 // Initialize on DOM ready
